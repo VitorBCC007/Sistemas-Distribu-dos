@@ -1,0 +1,64 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+
+
+public class Serv{
+    static String resposta = "";
+    public static void main(String[] args) throws IOException{
+        ServerSocket ss = new ServerSocket(4999);
+        Socket s = ss.accept();
+        //to do: apresentar print conectado 
+        InputStreamReader in = new InputStreamReader(s.getInputStream());
+        BufferedReader bf = new BufferedReader(in);
+        String str = bf.readLine();
+        String strd = bf.readLine();
+        String strt = bf.readLine();
+        
+        
+        System.out.println("O cliente enviou nome: "+ str);
+        System.out.println("O cliente enviou número mesa: "+ strd);
+        System.out.println("O cliente enviou número pedido: "+ strt);
+
+        System.out.println("MENSAGEM RECEBIDA");
+
+        resposta = strt;
+
+        String pedido = "";
+
+        PrintWriter pr = new PrintWriter(s.getOutputStream());
+        if (resposta.equals("1")){
+            System.out.println("Entregando Açai"+ strt);
+            pedido = "Açai";
+        }
+        else if(resposta.equals("2")){
+            System.out.println("Entregando Strogonoff"+ strt);
+            pedido = "Strogonoff";
+        }
+        else{
+            System.out.println("Resposta incorreta, não temos no cadápio: "+ strt);
+            pedido = "Só tem pedido [1] ou [2] no nosso cardapio";
+        }
+        pr.println("Seu pedido será: "+ pedido);
+        
+        System.out.println(resposta.equals("1"));
+        
+        pr.flush(); //transmite
+        
+
+
+
+        
+        
+        // System.out.println(strt);
+
+//Restaurante
+//Servidor RECEBE nome, pedido, mesa
+//Cliente ENVIA nome, pedido, mesa
+//Servidor ENVIA pedido escolhido [1] / [2]
+    }
+}
