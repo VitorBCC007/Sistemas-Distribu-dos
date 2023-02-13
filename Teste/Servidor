@@ -6,8 +6,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 
+
 public class Serv{
-    
+    static int resposta = 0;
     public static void main(String[] args) throws IOException{
         ServerSocket ss = new ServerSocket(4999);
         Socket s = ss.accept();
@@ -18,19 +19,34 @@ public class Serv{
         String strd = bf.readLine();
         String strt = bf.readLine();
         
-        System.out.println("O cliente enviou: "+ str);
+        
+        System.out.println("O cliente enviou nome: "+ str);
         System.out.println("O cliente enviou número mesa: "+ strd);
         System.out.println("O cliente enviou número pedido: "+ strt);
 
         System.out.println("MENSAGEM RECEBIDA");
 
         PrintWriter pr = new PrintWriter(s.getOutputStream());
-        pr.println("Essa mensagem foi enviada do servidor para o cliente e");
-        pr.flush(); //transmite
+        pr.println(" Seu pedido será: "+ strt);
+       
 
+        
+        pr.flush(); //transmite
+        if (resposta == 1){
+            System.out.println("Entregando Açai"+ strt);
+        }
+        else if(resposta == 2){
+            System.out.println("Entregando Strogonoff"+ strt);
+        }
+        else{
+            System.out.println("Resposta incorreta, não temos no cadápio: "+ strt);
+        }
+        
+        System.out.println(strt);
 
 //Restaurante
 //Servidor RECEBE nome, pedido, mesa
 //Cliente ENVIA nome, pedido, mesa
+//Servidor ENVIA pedido escolhido [1] / [2]
     }
 }
