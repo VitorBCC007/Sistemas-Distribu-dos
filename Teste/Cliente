@@ -7,27 +7,34 @@ import java.net.UnknownHostException;
 import javax.swing.JOptionPane;
 
 
+
 public class Cliente{
-    
+    static int resposta = 0;
     public static void main (String[] args) throws UnknownHostException, IOException {
         
-        Socket s = new Socket("10.1.1.187", 4999);
+        Socket s = new Socket("192.168.0.101", 4999);
         PrintWriter pr = new PrintWriter(s.getOutputStream());
+
+        
         pr.println(JOptionPane.showInputDialog("Digite seu nome: "));
         pr.println(JOptionPane.showInputDialog("Digite número mesa: "));
-        pr.println(JOptionPane.showInputDialog("Digite número pedido: "));
 
+        pr.println(JOptionPane.showInputDialog("[1] Açai / [2] Strognoff"));
         pr.println(JOptionPane.showConfirmDialog(null, "MENSAGEM ENVIADA"));
 
-    
+        
 
-
+      
         pr.flush();
         InputStreamReader in = new InputStreamReader(s.getInputStream());
         BufferedReader bf = new BufferedReader(in);
         String str = bf.readLine();
+        
 
-        System.out.println("O servidor enviou"+ str);
+
+        System.out.println("O servidor enviou: "+ str);
+        
+        
 
 
 
